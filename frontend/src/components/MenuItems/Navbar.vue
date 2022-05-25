@@ -3,36 +3,28 @@
 	<ul>
 	<li><a href="/">Home</a></li>
 	<li v-if="!$store.state.users.isLoggedIn"><a href="/login">Login</a></li>
-  <li v-if="$store.state.users.isLoggedIn">
-  <a href="/login">Logout</a>
-  </li>
+  <li v-if="$store.state.users.isLoggedIn"><a href="/login">Logout</a></li>
+  <li v-if="$store.state.users.isAdmin"><a href="/admin">Admin</a></li>
 	<li><a href="/events">Events</a></li>
+  <li><a href="/Blogs">Blogs</a></li>
+
 	</ul>  
 </div>
 </template>
 
 <script>
 import {mapGetters} from 'vuex'
-// import { CurrentSession } from '../ServicesHelp/GlobalVariables';
+//ViewModel
 export default({
     name: 'Navbar',
         
     data: () => ({
-		//CS: CurrentSession
+		
 	}),
-  //mounted: function() {
-    //let user = JSON.parse(localStorage.getItem('user'));
-    //if(user && user.token) 
-        //{
-            //CurrentSession.isLoggedIn = true
-        //}
-        //if(!user && !user.token)
-        //{
-            //CurrentSession.isLoggedIn = false
-    //     }
-    // },
+  // used to check user state on navbar on loggedin and if admin 
     computed: {
-      ...mapGetters(['GetLoginState'])
+      ...mapGetters(['GetLoginState', 'GetAdminState']),
+      
     }
 })
 

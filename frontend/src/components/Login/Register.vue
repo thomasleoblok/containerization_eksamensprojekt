@@ -2,28 +2,36 @@
     <div class="container">
         <div class="card">
             <div class="card-body">
+                
                 <h1>skriv dig op!</h1>
                 <p>Udfyld tingene tak.</p>
                 <hr>
-
+               <form @submit.prevent>
                 <label for="FullName"><b>FullName</b></label>
-                <input v-model="user.FullName" ref="FullName" type="text" placeholder="Enter FullName" name="FullName" />
-                
-                <label for="email"><b>Email</b></label>
-                <input v-model="user.email" ref="email" type="email" placeholder="Enter Email" name="email" />
+                <input v-model="user.FullName" ref="FullName" type="text" placeholder="Enter FullName" name="FullName" :class="{ 'is-invalid': submitted && !user.FullName }"/>
+                <div v-show="submitted && !user.FullName" class="invalid-feedback">FullName is required</div>
+                   
 
+                <label for="email"><b>Email</b></label>
+                <input v-model="user.Email" ref="email" type="email" placeholder="Enter Email" name="Email" :class="{ 'is-invalid': submitted && !user.Email }"/>
+                <div v-show="submitted && !user.Email" class="invalid-feedback">Email is required</div>
+
+ 
                 <label for="psw"><b>Password</b></label>
-                <input v-model="user.password" ref="psw" type="password" placeholder="Enter Password" name="psw" />
+                <input v-model="user.password" ref="psw" type="password" placeholder="Enter Password" name="psw" :class="{ 'is-invalid': submitted && !user.password }"/>
+                <div v-show="submitted && !user.password" class="invalid-feedback">Password is required</div>
 
                 <label for="psw-repeat"><b>Repeat Password</b></label>
-                <input v-model="user.repeatPassword" type="password" placeholder="Repeat Password" name="psw-repeat" />
+                <input v-model="user.repeatPassword" type="password" placeholder="Repeat Password" name="psw-repeat"/>
                 
+
                 <p>Big chunkes <a href="#" style="color:dodgerblue">Terms & Privacy</a>.</p>
 
                 <div class="clearfix">
                     <button type="button" class="cancelbtn" v-on:click="back">Nevermind</button>
-                    <button type="submit" class="signupbtn" v-on:click="signup">Skriv mig op</button>
+                    <button type="submit" class="signupbtn" @click="handleRegisterSubmit" :disabled="RegisterRun">Skriv mig op</button>
                 </div>
+                </form>
             </div>
         </div>
     </div>
@@ -32,51 +40,68 @@
 <script>
 
 import Swal from 'sweetalert2';
-
+// exports the credentiels to the store Registeruser/register returns state-status and disabled the button untill the respond is returned
+// swalt helps the user knowing if the credentiels is correct inputed
+//model
 export default({
     data(){
         return{
             user:{
-                email:"",
+                Email:"",
                 password:"",
                 repeatPassword:"",
-                Fullname:"",
+                FullName:"",
             },
+                submitted: false
         }
     },
-    setup() {
-        
+    //Viewmodel
+    computed: {
+        RegisterRun () {
+            return this.$store.state.RegisterUser.status.RegisterRun
+        }
     },
+    
     methods:{
+        handleRegisterSubmit () {
+            if(this.checkValidation()){
+            this.submitted = true;
+            const { Email, password, FullName } = this.user;
+            const { dispatch } = this.$store;
+            if (Email && password && FullName) {
+                dispatch('RegisterUser/Register', { Email, password, FullName });
+               }  
+            } 
+        },
         back(){
             this.$router.push({ name: 'Login' });
         },
-        
-        
+
         checkValidation(){
-            if(!this.user.Fullname){
+            
+            if(!this.user.FullName){
                 this.$refs.FullName.focus();
-                Swal.fire("Give FullName !");
+                Swal.fire("Giv FullName !");
                 return;
             }
-            if(!this.user.email){
-                this.$refs.email.focus();
-                Swal.fire("Give email !");
+            if(!this.user.Email){
+                this.$refs.Email.focus();
+                Swal.fire("Giv email !");
                 return;
             }
-            if(!(/\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*/).test(this.user.email)){
-                this.$refs.email.focus();
-                Swal.fire("Invalid email !");
+            if(!(/\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*/).test(this.user.Email)){
+                this.$refs.Email.focus();
+                Swal.fire("Ugyldig email !");
                 return;
             }
             if(!this.user.password){
                 this.$refs.psw.focus();
-                Swal.fire("Give password !");
+                Swal.fire("Giv password !");
                 return;
             }
             if(this.user.password != this.user.repeatPassword){
                 this.$refs.psw.focus();
-                Swal.fire("Password and repeat password mismatched !");
+                Swal.fire("Password var ikke det samme !");
                 return;
             }
             return true;

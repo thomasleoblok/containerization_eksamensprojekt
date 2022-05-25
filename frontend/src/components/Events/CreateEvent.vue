@@ -5,7 +5,7 @@
     <div class="container">
       <label for="title">Titel</label>
       <input
-        v-model="Event.title"
+        v-model="Evnt.Title"
         type="text"
         id="title"
         name="tite"
@@ -14,7 +14,7 @@
 
       <label for="description">Beskrivelse</label>
       <textarea
-        v-model="Event.description"
+        v-model="Evnt.Description"
         id="description"
         name="description"
         placeholder="En beskrivelse af eventet.."
@@ -23,40 +23,89 @@
 
       <label for="place">Lokation</label>
       <input
-        v-model="Event.place"
+        v-model="Evnt.Place"
         type="text"
         id="place"
         name="place"
         placeholder="Events lokation.."
       />
-
+      <div class="container">
+        <div class="row" style="width:auto;">
+          <div class="col-xs-6" style="width:auto;">
+            <label for="startDateTime">Starttid</label><br />
+            <input
+              v-model="Evnt.StartDateTime"
+              type="datetime-local"
+              id="startDateTime"
+              name="startDateTime"
+              min="2022-05-20T00:00"
+              max="2022-07-28T00:00"
+            />
+          </div>
+          <div class="col-xs-6" style="width:auto;">
+            <label for="endDateTime">Sluttid</label><br />
+            <input
+              v-model="Evnt.EndDateTime"
+              type="datetime-local"
+              id="endDateTime"
+              name="endDateTime"
+              min="2022-05-20T00:00"
+              max="2022-07-28T00:00"
+            />
+          </div>
+        </div>
+      </div>
       <button class="btn btn-success" v-on:click="CreateEvent">Opret</button>
     </div>
   </div>
 </template>
 
 <script>
-import axios from "axios";
+import { eventService } from "../ServicesHelp//event.service";
 
 export default {
   data() {
     return {
-      Event: {
-        title: "",
-        description: "",
-        place: "",
-        createdDateTime: "",
-        startDateTime: "",
-        endDateTime: "",
+      Evnt: {
+        Id: 0,
+        Title: "",
+        Description: "",
+        Place: "",
+        CreatedDateTime: "",
+        StartDateTime: "2022-05-20T17:00",
+        EndDateTime: "2022-05-20T18:00",
       },
-      CreateResponse: {},
     };
   },
   methods: {
     async CreateEvent() {
-      axios
-        .post("https://localhost:7282/api/events", this.Event)
-        .then((response) => (this.CreateResponse = response.data));
+      this.Evnt.CreatedDateTime = this.getNow();
+      eventService
+        .create(this.Evnt)
+        .then((response) => (
+          response ? alert("Event oprettet succesfuldt") : ""));
+       
+       setTimeout(() => {  this.$router.push({path: "/Events"}); }, 1000);
+       
+    },
+    getNow() {
+      const today = new Date();
+      var breaker = "-";
+      var timebreaker = "";
+      if((today.getMonth() + 1) < 10)
+        breaker = "-0";
+      const date =
+        today.getFullYear() +
+        breaker +
+        (today.getMonth() + 1) +
+        "-" +
+        today.getDate();
+      if(today.getMinutes() < 10)
+            timebreaker = "0";
+      const time =
+        today.getHours() + ":" + timebreaker + today.getMinutes();
+      const dateTime = date + "T" + time;
+      return dateTime;
     },
   },
 };

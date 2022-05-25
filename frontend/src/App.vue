@@ -4,6 +4,7 @@
         <div class="row">
           <div class="col-sm-6 offset-sm-3">
           <Navbar />
+          <!-- mutations based on action -->
           <div v-if="alert.message" :class="`alert ${alert.type}`">{{alert.message}}</div>
           <router-view></router-view>
            </div>
@@ -27,6 +28,7 @@ export default {
     FooterSection,
     Navbar
   },
+  //mutations based on action from store alert
   computed: {
         alert () {
             return this.$store.state.alert
@@ -34,6 +36,7 @@ export default {
     },
     watch:{
         $route (to, from){
+          console.log(to, from);
             // clear alert on location change
             this.$store.dispatch('alert/clear');
         }

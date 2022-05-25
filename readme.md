@@ -1,27 +1,25 @@
-# Foobar
+# Opret image
 
-Foobar is a Python library for dealing with word pluralization.
-
-## Installation
-
-Use the package manager [pip](https://pip.pypa.io/en/stable/) to install foobar.
+Hop ind i mappen
+```bash
+cd netbackendforeningsblog
+```
+Byg nyt image ud fra dockerfilen
+```bash
+docker build -t foreningsbloggen -f "./netbackendforeningsblog/Dockerfile" .
+```
+Tjek at imaget er oprettet korrekt
 
 ```bash
-pip install foobar
+docker images
 ```
 
-## Usage
-
-```python
-import foobar
-
-# returns 'words'
-foobar.pluralize('word')
-
-# returns 'geese'
-foobar.pluralize('goose')
-
-# returns 'phenomenon'
-foobar.singularize('phenomena')
+Lav en ny container af vores image (-d betyder detach)
+```bash
+docker run -ti -d -p 9090:80 foreningsblog_backend
 ```
 
+Tjek at vores container er oprettet
+```bash
+docker ps
+```
