@@ -16,7 +16,7 @@ docker images
 
 Lav en ny container af vores image (-d betyder detach)
 ```bash
-docker run -ti -d -p 9090:80 foreningsblog_backend
+docker run -ti -d -p 9090:80 foreningsbloggen
 ```
 
 Tjek at vores container er oprettet
