@@ -2,7 +2,7 @@
 
 Hop ind i mappen
 ```bash
-cd netbackendforeningsblog
+cd backend
 ```
 Byg nyt image ud fra dockerfilen
 ```bash
@@ -16,7 +16,7 @@ docker images
 
 Lav en ny container af vores image (-d betyder detach)
 ```bash
-docker run -ti -d -p 9090:80 foreningsblog_backend
+docker run -ti -d -p 7282:80 foreningsblog_backend
 ```
 
 Tjek at vores container er oprettet
