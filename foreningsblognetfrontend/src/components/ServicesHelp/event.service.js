@@ -11,7 +11,7 @@ export const eventService = {
 // json body is empty
 function attend(EventId, UserId) {
 	return fetch(
-		`https://localhost:7282/api/events/attend/${EventId}/${UserId}`,
+		`http://localhost:7282/api/events/attend/${EventId}/${UserId}`,
 		requestOptions.post('')
 	)
 		.then(handleResponse)
@@ -24,7 +24,7 @@ function attend(EventId, UserId) {
 // body should be event
 function create(ev) {
 	console.log(ev)
-	return fetch(`https://localhost:7282/api/events`, requestOptions.post(ev))
+	return fetch(`http://localhost:7282/api/events`, requestOptions.post(ev))
 		.then(handleResponse)
 		.then((event) => {
 			return event;
@@ -34,7 +34,7 @@ function create(ev) {
 // Calls the get method in events controller, without body or other parameters
 function getAll() {
 	return fetch(
-		`https://localhost:7282/api/events`,
+		`http://localhost:7282/api/events`,
 		requestOptions.get()
 	).then(handleResponse);
 }

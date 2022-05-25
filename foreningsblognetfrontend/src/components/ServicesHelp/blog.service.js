@@ -9,7 +9,7 @@ export const blogService = {
 // Calls the create method (the only HttpPost method) in blogs controller
 // body should be blog
 function create(blg) {
-    return fetch('https://localhost:7282/api/blogs', requestOptions.post(blg))
+    return fetch('http://localhost:7282/api/blogs', requestOptions.post(blg))
         .then(handleResponse)
         .then(blog => {
             return blog;
@@ -19,13 +19,13 @@ function create(blg) {
 
 // Calls the get method in blogs controller, without body or other parameters
 function getAll() {
-    return fetch(`https://localhost:7282/api/blogs`, requestOptions.get())
+    return fetch(`http://localhost:7282/api/blogs`, requestOptions.get())
         .then(handleResponse);
 }
 
 // Calls delete method in blogs controller with id as parameter (parsed via the URL)
 function Delete(id) {
-    return fetch(`https://localhost:7282/api/blogs/${id}`, requestOptions.delete())
+    return fetch(`http://localhost:7282/api/blogs/${id}`, requestOptions.delete())
         .then(handleResponse);
 }
 

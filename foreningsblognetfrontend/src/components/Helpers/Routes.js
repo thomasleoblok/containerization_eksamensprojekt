@@ -1,4 +1,4 @@
-const { createRouter, createWebHistory } = require('vue-router');
+const { createRouter, createWebHashHistory } = require('vue-router');
 import Login from '../Login/Login.vue';
 import Events from '../Events/Events.vue';
 import CreateEvent from '../Events/CreateEvent.vue';
@@ -66,7 +66,7 @@ const routes = [
 ];
 
 const router = createRouter({
-	history: createWebHistory(),
+	history: createWebHashHistory(),
 	routes,
 });
 //berfore a route is pushed if the route has some autherzation

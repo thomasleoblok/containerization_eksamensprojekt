@@ -19,7 +19,7 @@ function login(Email, password) {
 	};
 
 	return fetch(
-		`https://localhost:7282/api/users/authenticate`,
+		`http://localhost:7282/api/users/authenticate`,
 		requestOptions
 	)
 		.then(handleResponse)
@@ -46,7 +46,7 @@ function Register(Email, password, FullName) {
 		body: JSON.stringify({ Email, password, FullName }),
 	};
 
-	return fetch(`https://localhost:7282/api/users/Register`, requestOptions)
+	return fetch(`http://localhost:7282/api/users/Register`, requestOptions)
 		.then(handleResponse)
 		.then((user) => {
 			return user;
@@ -61,7 +61,7 @@ function logout() {
 
 function getAll() {
 	// Gets all the users based on the fetch from the api sends bearertoken (requestoption) to the api for authentication
-	return fetch(`https://localhost:7282/api/users`, requestOptions.get()).then(
+	return fetch(`http://localhost:7282/api/users`, requestOptions.get()).then(
 		handleResponse
 	);
 }
@@ -69,7 +69,7 @@ function getAll() {
 function Delete(id) {
 	return fetch(
 	// Delete the users based on the fetch from the api sends bearertoken (requestoption) to the api for authentication
-		`https://localhost:7282/api/users/DeleteUser/${id}`,
+		`http://localhost:7282/api/users/DeleteUser/${id}`,
 		requestOptions.delete('')
 	)
 		.then(handleResponse)

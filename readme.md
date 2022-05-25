@@ -42,7 +42,7 @@ docker images
 
 Lav en ny container af vores image (-d betyder detach)
 ```bash
-docker run -ti -d -p 8090:80 foreningsblog_frontend
+docker run -ti -d -p 8080:80 foreningsblog_frontend
 ```
 
 Tjek at vores container er oprettet
