@@ -1,4 +1,4 @@
-# Opret image
+# Opret backend image
 
 Hop ind i mappen
 ```bash
@@ -6,7 +6,7 @@ cd netbackendforeningsblog
 ```
 Byg nyt image ud fra dockerfilen
 ```bash
-docker build -t foreningsbloggen -f "./netbackendforeningsblog/Dockerfile" .
+docker build -t foreningsblog_backend -f "./netbackendforeningsblog/Dockerfile" .
 ```
 Tjek at imaget er oprettet korrekt
 
@@ -16,7 +16,33 @@ docker images
 
 Lav en ny container af vores image (-d betyder detach)
 ```bash
-docker run -ti -d -p 9090:80 foreningsbloggen
+docker run -ti -d -p 9090:80 foreningsblog_backend
+```
+
+Tjek at vores container er oprettet
+```bash
+docker ps
+```
+
+# Opret frontend image
+
+Hop ind i mappen
+```bash
+cd foreningsblognetfrontend
+```
+Byg nyt image ud fra dockerfilen
+```bash
+docker build -t foreningsblog_frontend .
+```
+Tjek at imaget er oprettet korrekt
+
+```bash
+docker images
+```
+
+Lav en ny container af vores image (-d betyder detach)
+```bash
+docker run -ti -d -p 8090:80 foreningsblog_frontend
 ```
 
 Tjek at vores container er oprettet
