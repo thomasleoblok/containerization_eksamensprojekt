@@ -1,0 +1,22 @@
+services:
+  backend:
+    image: foreningsblog_backend
+    restart: unless-stopped
+    build:
+      context: .
+      dockerfile: ./Backend/netbackendforeningsblog/Dockerfile
+    ports:
+      - "7282:80"
+    #depends_on:
+    #  - db
+
+  frontend:
+    image: foreningsblog_frontend
+    restart: unless-stopped
+    build:
+      context: .
+      dockerfile: ./foreningsblognetfrontend/dockerfile
+    ports:
+      - "8080:80"
+    depends_on:
+      - backend
