@@ -16,7 +16,7 @@ builder.Services.AddSwaggerGen();
 
 
 builder.Services.AddDbContext<ForeningsblogContext>(opt =>
- opt.UseSqlServer("Data Source=127.0.0.1,1433;Initial Catalog=foreningsblog;Persist Security Info=True;User ID=sa;Password=Password.123"));
+ opt.UseSqlServer("Data Source=db,1433;Initial Catalog=foreningsblog;Persist Security Info=True;User ID=sa;Password=Password.123"));
 
 
 // add services to dependency injection container
