@@ -1,4 +1,15 @@
-# Opret backend image
+# Byg og kør docker-compose
+Start med at få docker-compose til at bygge vores shared-network
+```bash
+docker-compose build
+```
+
+Start vores shared-network
+```bash
+docker-compose up
+```
+
+## Opret backend image
 
 Hop ind i mappen
 ```bash
@@ -24,7 +35,7 @@ Tjek at vores container er oprettet
 docker ps
 ```
 
-# Opret frontend image
+## Opret frontend image
 
 Hop ind i mappen
 ```bash
