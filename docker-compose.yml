@@ -1,31 +1,32 @@
+version: '3.9'
 services:
-  db:
-    image: mcr.microsoft.com/mssql/server
-    restart: unless-stopped
-    ports:
-      - "1433:1433"
-    environment:
-      - ACCEPT_EULA=Y
-      - SA_PASSWORD=Password.123
+    db:
+        image: mcr.microsoft.com/mssql/server
+        restart: unless-stopped
+        ports:
+            - '1433:1433'
+        environment:
+            - ACCEPT_EULA=Y
+            - SA_PASSWORD=Password.123
 
-  backend:
-    image: foreningsblog_backend
-    restart: unless-stopped
-    build:
-      context: .
-      dockerfile: ./Backend/netbackendforeningsblog/Dockerfile
-    ports:
-      - "7282:80"
-    depends_on:
-      - db
+    backend:
+        image: foreningsblog_backend
+        restart: unless-stopped
+        build:
+            context: .
+            dockerfile: ./Backend/netbackendforeningsblog/Dockerfile
+        ports:
+            - '7282:80'
+        depends_on:
+            - db
 
-  frontend:
-    image: foreningsblog_frontend
-    restart: unless-stopped
-    build:
-      context: .
-      dockerfile: ./foreningsblognetfrontend/dockerfile
-    ports:
-      - "8080:80"
-    depends_on:
-      - backend
+    frontend:
+        image: foreningsblog_frontend
+        restart: unless-stopped
+        build:
+            context: .
+            dockerfile: ./foreningsblognetfrontend/dockerfile
+        ports:
+            - '8080:80'
+        depends_on:
+            - backend
